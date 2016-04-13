@@ -1,0 +1,24 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer.html">
+
+<dom-module id="paper-file-upload">
+
+  <template>
+
+    <paper-button id="button"
+                  raised$="[[raised]]"
+                  noink$="[[noink]]"
+                  on-click="onButtonClick">
+      <content></content>
+    </paper-button>
+
+    <input id="fileInput"
+           type="file"
+           on-change="onFileChange"
+           hidden
+           multiple$="[[multiple]]">
+
+  </template>
+
+  <script inline src="./paper-file-upload.js"></script>
+
+</dom-module>

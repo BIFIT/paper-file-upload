@@ -1,0 +1,24 @@
+<link rel="import" href="../../../../bower_components/polymer/polymer.html">
+
+<dom-module id="paper-file-upload">
+
+  <template>
+
+    <paper-button id="button"
+                  raised$="[[raised]]"
+                  noink$="[[noink]]"
+                  on-click="onButtonClick">
+      <content></content>
+    </paper-button>
+
+    <input id="fileInput"
+           type="file"
+           on-change="onFileChange"
+           hidden
+           multiple$="[[multiple]]">
+
+  </template>
+
+  <script>"use strict";new Polymer({is:"paper-file-upload",properties:{multiple:{type:Boolean,value:!1,reflectToAttribute:!0},raised:{type:Boolean,value:!1,reflectToAttribute:!0},noink:{type:Boolean,value:!1,reflectToAttribute:!0},files:{type:Array,value:[]}},clear:function(){this.set("files",[])},onButtonClick:function(){var e=document.createEvent("MouseEvents");e.initEvent("click",!0,!1),this.$.fileInput.dispatchEvent(e)},onFileChange:function(e){for(var r=0;r<e.target.files.length;r++){var t=e.target.files[r];t.progress=0,t.error=!1,t.complete=!1,this.push("files",t),this._readFile(t)}},_readFile:function(e){var r=this;if(!e)return void this.fire("error",{error:"file not found"});var t=new FileReader;t.readAsText(e),t.onload=function(e){if(e.target.readyState===FileReader.DONE)try{r.fire("success",{result:e.target.result})}catch(t){r.fire("error",{error:t})}},t.onerror=function(e){r.fire("error",{error:e})}}});</script>
+
+</dom-module>
